@@ -6,4 +6,4 @@
   become: true
 
   roles:
-    - role: pmikus.FIXME
+    - role: pmikus.nomad
