@@ -20,7 +20,6 @@ jobs:
           - ubuntu-21.04
           - ubuntu-20.10
           - ubuntu-20.04
-          - ubuntu-18.04
     steps:
       - name: Check out the codebase.
         uses: actions/checkout@v2
