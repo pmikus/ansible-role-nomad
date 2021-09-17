@@ -35,8 +35,12 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
-      - name: Install test dependencies.
-        run: pip3 install ansible molecule[docker] docker pyroute2
+      - name: Install test pip dependencies.
+        run: pip3 install ansible molecule[docker] docker
+      - name: Update APT repo
+        uses: arkane-systems/apt-repo-update@v1.1
+      - name: Install test apt dependencies.
+        run: sudo apt install -y unzip
       - name: Run Molecule tests.
         run: molecule test
         env:
