@@ -35,10 +35,8 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
-      - name: Install test pip dependencies.
-        run: pip3 install ansible molecule[docker] docker
-      - name: Install test apt dependencies
-        run: apt-get install -y iproute2
+      - name: Install test dependencies.
+        run: pip3 install ansible molecule[docker] docker iproute2
       - name: Run Molecule tests.
         run: molecule test
         env:
