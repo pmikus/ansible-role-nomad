@@ -4,9 +4,9 @@
 dependencies: []
 
 galaxy_info:
-  role_name: FIXME
+  role_name: nomad
   author: pmikus
-  description: FIXME for Linux.
+  description: Hashicorp Nomad.
   company: none
   license: "license (BSD, MIT)"
   min_ansible_version: 2.9
@@ -17,4 +17,5 @@ galaxy_info:
         - focal
         - groovy
   galaxy_tags:
-    - FIXME
+    - nomad
+    - hashicorp

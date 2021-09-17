@@ -1,0 +1,53 @@
+---
+name: Ansible CD
+
+on:
+  release:
+    types:
+      - published
+
+defaults:
+  run:
+    working-directory: 'pmikus.nomad'
+
+jobs:
+  molecule:
+    name: Molecule
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        distro:
+          - ubuntu-21.04
+          - ubuntu-20.10
+          - ubuntu-20.04
+          - ubuntu-18.04
+    steps:
+      - name: Check out the codebase.
+        uses: actions/checkout@v2
+        with:
+          path: 'pmikus.openrazer'
+      - name: Set up Python 3.
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      - name: Install test dependencies.
+        run: pip3 install ansible molecule[docker] docker
+      - name: Run Molecule tests.
+        run: molecule test
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
+          MOLECULE_DISTRO: ${{ matrix.distro }}
+
+  galaxy:
+    # Ensure test job passes before pushing image.
+    needs: molecule
+
+    name: GalaxyAnsible
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Ansible Galaxy Role Importer
+        uses: hspaans/ansible-galaxy-action@v0.2.8
+        with:
+          api_key: ${{ secrets.GALAXY_TOKEN }}
