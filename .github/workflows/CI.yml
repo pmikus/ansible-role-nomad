@@ -74,7 +74,7 @@ jobs:
           path: 'pmikus.nomad'
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@main
+        uses: SonarSource/sonarcloud-github-action@v1.6
         with:
           args: >
             -Dsonar.projectVersion=${{ github.ref }}_${{ github.run_number }}
