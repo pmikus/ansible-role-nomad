@@ -1,0 +1,29 @@
+---
+# file: tasks/ubuntu.yaml
+
+- name: Ensure dependencies are installed.
+  apt:
+    name:
+      - "apt-transport-https"
+      - "ca-certificates"
+      - "python3-apt"
+    state: "present"
+    cache_valid_time: 3600
+    install_recommends: False
+  tags:
+    - FIXME-inst-dependencies
+
+- name: Conf - Add APT Key
+  apt_key:
+    url: "{{ FIXME_apt_key_url }}"
+    state: "{{ FIXME_apt_key_state }}"
+  tags:
+    - FIXME-conf-apt
+
+- name: Add FIXME repository.
+  apt_repository:
+    repo: "{{ FIXME_apt_url }}"
+    state: "{{ FIXME_apt_state }}"
+    update_cache: True
+  tags:
+    - FIXME-conf-apt

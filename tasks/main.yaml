@@ -1,0 +1,13 @@
+---
+# file: tasks/main.yaml
+
+- include_tasks: "{{ ansible_distribution|lower }}.yaml"
+  tags:
+    - FIXME-inst-dependencies
+
+- name: Install FIXME.
+  package:
+    name: "{{ FIXME_package }}"
+    state: "{{ FIXME_package_state }}"
+  tags:
+    - FIXME-inst

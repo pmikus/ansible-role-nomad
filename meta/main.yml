@@ -1,0 +1,20 @@
+---
+# file: meta/main.yaml
+
+dependencies: []
+
+galaxy_info:
+  role_name: FIXME
+  author: pmikus
+  description: FIXME for Linux.
+  company: none
+  license: "license (BSD, MIT)"
+  min_ansible_version: 2.9
+  platforms:
+    - name: Ubuntu
+      versions:
+        - bionic
+        - focal
+        - groovy
+  galaxy_tags:
+    - FIXME
