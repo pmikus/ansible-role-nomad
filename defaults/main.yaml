@@ -5,7 +5,7 @@
 packages: "{{ packages_base + packages_by_distro[ansible_distribution | lower] + packages_by_arch[ansible_machine] }}"
 packages_base:
   - "curl"
-  - "unzip"
+  #- "unzip"
 packages_by_distro:
   ubuntu:
     - []
