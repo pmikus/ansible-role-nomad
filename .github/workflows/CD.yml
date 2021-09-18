@@ -24,13 +24,14 @@ jobs:
       - name: Check out the codebase.
         uses: actions/checkout@v2
         with:
-          path: 'pmikus.openrazer'
+          path: 'pmikus.nomad'
+
       - name: Set up Python 3.
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
-      - name: Install test dependencies.
-        run: pip3 install ansible molecule[docker] docker pyroute2
+      - name: Install test pip dependencies.
+        run: pip3 install ansible molecule[docker] docker
       - name: Run Molecule tests.
         run: molecule test
         env:
