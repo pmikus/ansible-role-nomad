@@ -1,21 +1,16 @@
 ---
 # file: roles/nomad/tasks/main.yaml
 
-- name: Inst - Update Package Cache (APT)
+- name: Install Dependencies
   apt:
-    update_cache: true
+    name: "{{ packages | flatten(levels=1) }}"
+    state: "present"
     cache_valid_time: 3600
+    install_recommends: false
   when:
     - ansible_distribution|lower == 'ubuntu'
   tags:
-    - nomad-inst-prerequisites
-
-- name: Inst - Prerequisites
-  package:
-    name: "{{ packages | flatten(levels=1) }}"
-    state: latest
-  tags:
-    - nomad-inst-prerequisites
+    - nomad-inst-dependencies
 
 - name: Conf - Add Nomad Group
   group:
