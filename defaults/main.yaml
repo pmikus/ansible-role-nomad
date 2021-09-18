@@ -47,6 +47,7 @@ nomad_ssl_dir: "/etc/nomad.d/ssl"
 
 # Initialization and startup script templates
 nomad_restart_handler_state: "restarted"
+nomad_service_mgr: ""
 
 # System user and group
 nomad_group: "nomad"
