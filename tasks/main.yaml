@@ -165,7 +165,7 @@
   no_log: true
   loop: "{{ nomad_certificates | flatten(levels=1) }}"
   when:
-    - nomad_certificates
+    - nomad_certificates is defined
   tags:
     - nomad-conf
 
