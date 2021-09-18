@@ -34,6 +34,7 @@ nomad_podman_pkg: "nomad-driver-podman_{{ nomad_podman_version }}_linux_{{nomad_
 nomad_podman_url: "https://releases.hashicorp.com/nomad-driver-podman/{{ nomad_podman_version }}"
 nomad_podman_zip_url: "{{ nomad_podman_url }}/{{ nomad_podman_pkg }}"
 nomad_podman_checksum_file_url: "{{ nomad_podman_url }}/nomad-driver-podman_{{ nomad_podman_version }}_SHA256SUMS"
+nomad_force_update: false
 
 # Paths
 nomad_inst_dir: "/opt"
