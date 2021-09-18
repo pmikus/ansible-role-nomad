@@ -28,13 +28,6 @@
   tags:
     - nomad-conf-user
 
-- name: Inst - Clean Nomad
-  file:
-    path: "{{ nomad_inst_dir }}/nomad"
-    state: "absent"
-  tags:
-    - nomad-inst-package
-
 - name: Inst - Download Nomad
   get_url:
     url: "{{ nomad_zip_url }}"
@@ -46,7 +39,6 @@
   unarchive:
     src: "{{ nomad_inst_dir }}/{{ nomad_pkg }}"
     dest: "{{ nomad_inst_dir }}/"
-    creates: "{{ nomad_inst_dir }}/nomad"
     remote_src: true
   tags:
     - nomad-inst-package
