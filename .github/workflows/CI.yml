@@ -37,8 +37,6 @@ jobs:
           python-version: '3.x'
       - name: Install test pip dependencies.
         run: pip3 install ansible molecule[docker] docker
-      - name: Update APT repo
-        uses: arkane-systems/apt-repo-update@v1.1
       - name: Run Molecule tests.
         run: molecule test
         env:
