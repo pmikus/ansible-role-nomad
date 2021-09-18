@@ -178,6 +178,8 @@
     mode: 0644
   notify:
     - "Restart Nomad"
+  when:
+    - nomad_service_mgr == "systemd"
   tags:
     - nomad-conf
 
