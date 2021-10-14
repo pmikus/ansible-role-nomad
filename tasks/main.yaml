@@ -1,5 +1,5 @@
 ---
-# file: roles/nomad/tasks/main.yaml
+# file: tasks/main.yaml
 
 - name: Install Dependencies
   apt:

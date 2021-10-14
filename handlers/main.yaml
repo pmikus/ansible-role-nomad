@@ -1,5 +1,5 @@
 ---
-# file roles/nomad/handlers/main.yaml
+# file handlers/main.yaml
 
 - name: Restart Nomad
   systemd:
