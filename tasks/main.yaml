@@ -1,14 +1,22 @@
 ---
 # file: tasks/main.yaml
 
-- name: Install Dependencies
+- name: Inst - Update Repositories Cache
+  apt:
+    update_cache: true
+  when:
+    - ansible_os_family == 'Debian'
+  tags:
+   - nomad-inst-package
+
+- name: Inst - Dependencies
   apt:
     name: "{{ packages | flatten(levels=1) }}"
     state: "present"
     cache_valid_time: 3600
     install_recommends: false
   when:
-    - ansible_distribution|lower == 'ubuntu'
+    - ansible_os_family == 'Debian'
   tags:
     - nomad-inst-dependencies
 
@@ -70,6 +78,7 @@
     state: directory
     owner: "{{ nomad_user }}"
     group: "{{ nomad_group }}"
+    mode: 0755
   tags:
     - nomad-conf
 
@@ -79,6 +88,7 @@
     state: directory
     owner: "{{ nomad_user }}"
     group: "{{ nomad_group }}"
+    mode: 0755
   tags:
     - nomad-conf
 
@@ -197,4 +207,5 @@
   tags:
     - nomad-conf
 
-- meta: flush_handlers
+- name: Meta - Flush handlers
+  meta: flush_handlers
