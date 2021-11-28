@@ -17,9 +17,10 @@ jobs:
     strategy:
       matrix:
         distro:
-          - ubuntu-21.04
-          - ubuntu-20.10
           - ubuntu-20.04
+          - ubuntu-20.10
+          - ubuntu-21.04
+          - ubuntu-21.10
     steps:
       - name: Check out the codebase.
         uses: actions/checkout@v2

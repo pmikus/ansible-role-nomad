@@ -13,9 +13,10 @@ galaxy_info:
   platforms:
     - name: Ubuntu
       versions:
-        - bionic
         - focal
         - groovy
+        - hirsute
+        - impish
   galaxy_tags:
     - nomad
     - hashicorp
