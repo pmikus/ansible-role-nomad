@@ -7,7 +7,7 @@
   when:
     - ansible_os_family == 'Debian'
   tags:
-   - nomad-inst-package
+    - nomad-inst-package
 
 - name: Inst - Dependencies
   apt:
