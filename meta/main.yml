@@ -17,6 +17,7 @@ galaxy_info:
         - groovy
         - hirsute
         - impish
+        - jammy
   galaxy_tags:
     - nomad
     - hashicorp
