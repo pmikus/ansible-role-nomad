@@ -8,8 +8,8 @@ driver:
 lint: |
   yamllint .
 platforms:
-  - name: ${DISTRO:-ubuntu-20.04}
-    image: "pmikus/docker-${MOLECULE_DISTRO:-ubuntu-20.04}-ansible:latest"
+  - name: ${DISTRO:-ubuntu-22.04}
+    image: "pmikus/docker-${MOLECULE_DISTRO:-ubuntu-22.04}-ansible:latest"
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true

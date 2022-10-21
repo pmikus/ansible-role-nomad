@@ -14,10 +14,8 @@ galaxy_info:
     - name: Ubuntu
       versions:
         - focal
-        - groovy
-        - hirsute
-        - impish
         - jammy
+        - kinetic
   galaxy_tags:
     - nomad
     - hashicorp
