@@ -1,5 +1,5 @@
 ---
-# file: roles/nomad/defaults/main.yaml
+# file: defaults/main.yaml
 
 # Prerequisites
 packages: "{{ packages_base + packages_by_distro[ansible_distribution | lower] + packages_by_arch[ansible_machine] }}"
@@ -16,7 +16,7 @@ packages_by_arch:
     - []
 
 # Package
-nomad_version: "{{ lookup('env','NOMAD_VERSION') | default('1.0.4', true) }}"
+nomad_version: "1.4.3"
 nomad_architecture_map:
   amd64: "amd64"
   x86_64: "amd64"
@@ -28,12 +28,6 @@ nomad_architecture: "{{ nomad_architecture_map[ansible_architecture] }}"
 nomad_pkg: "nomad_{{ nomad_version }}_linux_{{nomad_architecture}}.zip"
 nomad_zip_url: "https://releases.hashicorp.com/nomad/{{ nomad_version }}/nomad_{{ nomad_version }}_linux_{{nomad_architecture}}.zip"
 nomad_checksum_file_url: "https://releases.hashicorp.com/nomad/{{ nomad_version }}/nomad_{{ nomad_version}}_SHA256SUMS"
-nomad_podman_enable: false
-nomad_podman_version: "{{ lookup('env','NOMAD_PODMAN_VERSION') | default('0.1.0', true) }}"
-nomad_podman_pkg: "nomad-driver-podman_{{ nomad_podman_version }}_linux_{{nomad_architecture}}.zip"
-nomad_podman_url: "https://releases.hashicorp.com/nomad-driver-podman/{{ nomad_podman_version }}"
-nomad_podman_zip_url: "{{ nomad_podman_url }}/{{ nomad_podman_pkg }}"
-nomad_podman_checksum_file_url: "{{ nomad_podman_url }}/nomad-driver-podman_{{ nomad_podman_version }}_SHA256SUMS"
 nomad_force_update: false
 
 # Paths
@@ -61,9 +55,9 @@ nomad_datacenter: "dc1"
 nomad_region: "global"
 nomad_log_level: "INFO"
 nomad_syslog_enable: true
-nomad_iface: "{{ lookup('env','NOMAD_IFACE') | default(ansible_default_ipv4.interface, true) }}"
+nomad_iface: "{{ ansible_default_ipv4.interface }}"
 nomad_node_name: "{{ inventory_hostname }}"
-nomad_node_role: "{{ lookup('env','NOMAD_NODE_ROLE') | default('server', true) }}"
+nomad_node_role: "server"
 nomad_leave_on_terminate: true
 nomad_leave_on_interrupt: false
 nomad_disable_update_check: true
@@ -88,7 +82,7 @@ nomad_eval_gc_threshold: "1h"
 # Specifies the minimum time a deployment must be in the terminal state before
 # it is eligible for garbage collection.
 nomad_deployment_gc_threshold: "1h"
-nomad_encrypt_enable: "{{ lookup('env','NOMAD_ENCRYPT_ENABLE') | default('false', true) }}"
+nomad_encrypt_enable: false
 nomad_raft_protocol: 2
 
 # Client settings
@@ -141,18 +135,18 @@ nomad_gather_server_facts: false
 nomad_use_consul: true
 nomad_consul_address: "localhost:8500"
 nomad_consul_token: ""
-nomad_consul_servers_service_name: "nomad"
+nomad_consul_servers_service_name: "nomad-server"
 nomad_consul_clients_service_name: "nomad-client"
 nomad_consul_tags: {}
 
 # ACLs
-nomad_acl_enabled: "{{ lookup('env', 'NOMAD_ACL_ENABLED') | default('no', true) }}"
+nomad_acl_enabled: false
 nomad_acl_token_ttl: "30s"
 nomad_acl_policy_ttl: "30s"
 nomad_acl_replication_token: ""
 
 # Vault
-nomad_vault_enabled: "{{ lookup('env', 'NOMAD_VAULT_ENABLED') | default('no', true) }}"
+nomad_vault_enabled: false
 nomad_vault_address: "{{ vault_address | default('0.0.0.0', true) }}"
 nomad_vault_allow_unauthenticated: true
 nomad_vault_create_from_role: ""
@@ -167,7 +161,7 @@ nomad_vault_token: ""
 nomad_vault_namespace: ""
 
 # Docker
-nomad_docker_enable: "{{ lookup('env','NOMAD_DOCKER_ENABLE') | default('false', true) }}"
+nomad_docker_enable: false
 nomad_docker_dmsetup: true
 
 # TLS
@@ -183,7 +177,7 @@ nomad_rpc_upgrade_mode: false
 nomad_verify_server_hostname: false
 nomad_verify_https_client: false
 
-# Conf - autopilot.hcl
+# Autopilot
 nomad_autopilot_cleanup_dead_servers: true
 nomad_autopilot_last_contact_threshold: "200ms"
 nomad_autopilot_max_trailing_logs: 250
@@ -192,7 +186,7 @@ nomad_autopilot_server_stabilization_time: "10s"
 # Telemetry
 nomad_telemetry: true
 nomad_telemetry_disable_hostname: false
-nomad_telemetry_collection_interval: 60s
+nomad_telemetry_collection_interval: "60s"
 nomad_telemetry_use_node_name: false
 nomad_telemetry_publish_allocation_metrics: true
 nomad_telemetry_publish_node_metrics: true
