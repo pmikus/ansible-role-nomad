@@ -14,5 +14,12 @@ consul {
     # Enabling the server and client to bootstrap using Consul.
     server_auto_join = true
     client_auto_join = true
+
+    {% if nomad_consul_use_ssl | bool == True %}
+    ssl = true
+    ca_file = "/etc/consul.d/ssl/ca.pem"
+    cert_file = "/etc/consul.d/ssl/consul.pem"
+    key_file = "/etc/consul.d/ssl/consul-key.pem"
+    {% endif %}
 }
 {% endif %}
