@@ -139,9 +139,6 @@ nomad_consul_servers_service_name: "nomad-server"
 nomad_consul_clients_service_name: "nomad-client"
 nomad_consul_tags: {}
 nomad_consul_use_ssl: false
-nomad_consul_ca_file: "/etc/consul.d/ssl/ca.pem"
-nomad_consul_cert_file: "/etc/consul.d/ssl/consul.pem"
-nomad_consul_key_file: "/etc/consul.d/ssl/consul-key.pem"
 
 # ACLs
 nomad_acl_enabled: false
