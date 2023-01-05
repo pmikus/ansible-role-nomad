@@ -81,9 +81,9 @@
     group: "{{ nomad_group }}"
     mode: 0755
   with_items:
-    - "{{ vault_data_dir }}"
-    - "{{ vault_config_dir }}"
-    - "{{ vault_ssl_dir }}"
+    - "{{ nomad_data_dir }}"
+    - "{{ nomad_config_dir }}"
+    - "{{ nomad_ssl_dir }}"
   tags:
     - nomad-conf
 
