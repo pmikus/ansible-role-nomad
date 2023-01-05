@@ -75,31 +75,15 @@
 
 - name: Create Directories
   ansible.builtin.file:
-    dest: "{{ nomad_data_dir }}"
+    dest: "{{ item }}"
     state: "directory"
     owner: "{{ nomad_user }}"
     group: "{{ nomad_group }}"
     mode: 0755
-  tags:
-    - nomad-conf
-
-- name: Create Directories
-  ansible.builtin.file:
-    dest: "{{ nomad_ssl_dir }}"
-    state: "directory"
-    owner: "{{ nomad_user }}"
-    group: "{{ nomad_group }}"
-    mode: 0755
-  tags:
-    - nomad-conf
-
-- name: Create Config Directory
-  ansible.builtin.file:
-    dest: "{{ nomad_config_dir }}"
-    state: "directory"
-    owner: "{{ nomad_user }}"
-    group: "{{ nomad_group }}"
-    mode: 0755
+  with_items:
+    - "{{ vault_data_dir }}"
+    - "{{ vault_config_dir }}"
+    - "{{ vault_ssl_dir }}"
   tags:
     - nomad-conf
 
@@ -143,9 +127,9 @@
     create: true
   loop:
     - "export NOMAD_ADDR=https://nomad-server.service.consul:4646"
-    - "export NOMAD_CACERT={{ nomad_ca_file }}"
-    - "export NOMAD_CLIENT_CERT={{ nomad_cli_cert_file }}"
-    - "export NOMAD_CLIENT_KEY={{ nomad_cli_key_file }}"
+    - "export NOMAD_CACERT={{ nomad_tls_ca_file }}"
+    - "export NOMAD_CLIENT_CERT={{ nomad_tls_cli_cert_file }}"
+    - "export NOMAD_CLIENT_KEY={{ nomad_tls_cli_key_file }}"
   tags:
     - nomad-conf
 

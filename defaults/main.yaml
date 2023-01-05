@@ -167,6 +167,8 @@ nomad_use_tls: true
 nomad_tls_ca_file: "{{ nomad_ssl_dir }}/nomad-ca.pem"
 nomad_tls_cert_file: "{{ nomad_ssl_dir }}/nomad.pem"
 nomad_tls_key_file: "{{ nomad_ssl_dir }}/nomad-key.pem"
+nomad_tls_cli_cert_file: "{{ nomad_ssl_dir }}/nomad-cli.pem"
+nomad_tls_cli_key_file: "{{ nomad_ssl_dir }}/nomad-cli-key.pem"
 nomad_tls_http: false
 nomad_tls_rpc: false
 nomad_tls_rpc_upgrade_mode: false
