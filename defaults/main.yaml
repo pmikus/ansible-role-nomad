@@ -41,14 +41,11 @@ nomad_run_dir: "/var/run/nomad"
 nomad_ssl_dir: "/etc/nomad.d/ssl"
 
 # Initialization and startup script templates
-nomad_restart_handler_state: "restarted"
 nomad_service_mgr: ""
 
 # System user and group
 nomad_group: "nomad"
-nomad_group_state: "present"
 nomad_user: "nomad"
-nomad_user_state: "present"
 
 # Nomad settings
 nomad_datacenter: "dc1"
@@ -146,37 +143,9 @@ nomad_acl_token_ttl: "30s"
 nomad_acl_policy_ttl: "30s"
 nomad_acl_replication_token: ""
 
-# Vault
-nomad_vault_enabled: false
-nomad_vault_address: "{{ vault_address | default('0.0.0.0', true) }}"
-nomad_vault_allow_unauthenticated: true
-nomad_vault_create_from_role: ""
-nomad_vault_task_token_ttl: ""
-nomad_vault_ca_file: ""
-nomad_vault_ca_path: ""
-nomad_vault_cert_file: ""
-nomad_vault_key_file: ""
-nomad_vault_tls_server_name: ""
-nomad_vault_tls_skip_verify: false
-nomad_vault_token: ""
-nomad_vault_namespace: ""
-
 # Docker
 nomad_docker_enable: false
 nomad_docker_dmsetup: true
-
-# TLS
-nomad_tls_enable: true
-nomad_ca_file: "{{ nomad_ssl_dir }}/nomad-ca.pem"
-nomad_cert_file: "{{ nomad_ssl_dir }}/nomad.pem"
-nomad_key_file: "{{ nomad_ssl_dir }}/nomad-key.pem"
-nomad_cli_cert_file: "{{ nomad_ssl_dir }}/nomad-cli.pem"
-nomad_cli_key_file: "{{ nomad_ssl_dir }}/nomad-cli-key.pem"
-nomad_http: false
-nomad_rpc: false
-nomad_rpc_upgrade_mode: false
-nomad_verify_server_hostname: false
-nomad_verify_https_client: false
 
 # Autopilot
 nomad_autopilot_cleanup_dead_servers: true
@@ -184,11 +153,39 @@ nomad_autopilot_last_contact_threshold: "200ms"
 nomad_autopilot_max_trailing_logs: 250
 nomad_autopilot_server_stabilization_time: "10s"
 
-# Telemetry
-nomad_telemetry: true
+# Telemetry.
+nomad_use_telemetry: true
 nomad_telemetry_disable_hostname: false
-nomad_telemetry_collection_interval: "60s"
+nomad_telemetry_collection_interval: "1s"
 nomad_telemetry_use_node_name: false
 nomad_telemetry_publish_allocation_metrics: true
 nomad_telemetry_publish_node_metrics: true
 nomad_telemetry_prometheus_metrics: true
+
+# TLS.
+nomad_use_tls: true
+nomad_tls_ca_file: "{{ nomad_ssl_dir }}/nomad-ca.pem"
+nomad_tls_cert_file: "{{ nomad_ssl_dir }}/nomad.pem"
+nomad_tls_key_file: "{{ nomad_ssl_dir }}/nomad-key.pem"
+nomad_tls_http: false
+nomad_tls_rpc: false
+nomad_tls_rpc_upgrade_mode: false
+nomad_tls_verify_https_client: false
+nomad_tls_verify_server_hostname: false
+
+# Vault.
+nomad_use_vault: true
+nomad_vault_address: "http://vault.service.consul:8200"
+nomad_vault_allow_unauthenticated: true
+nomad_vault_enabled: false
+nomad_vault_create_from_role: ""
+nomad_vault_task_token_ttl: "72h"
+nomad_vault_use_ssl: false
+nomad_vault_ca_file: ""
+nomad_vault_ca_path: ""
+nomad_vault_cert_file: ""
+nomad_vault_key_file: ""
+nomad_vault_namespace: ""
+nomad_vault_tls_server_name: ""
+nomad_vault_tls_skip_verify: false
+nomad_vault_token: ""

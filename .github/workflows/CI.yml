@@ -1,88 +1,81 @@
 ---
-name: Ansible CI
+name: "Ansible CI"
 
-'on':
+"on":
   # Trigger the workflow on push or pull request,
   # but only for the main branch
   pull_request:
     branches:
-      - main
+      - "main"
   push:
     branches:
-      - main
+      - "main"
 
 defaults:
   run:
-    working-directory: 'pmikus.nomad'
+    working-directory: "pmikus.nomad"
 
 jobs:
   molecule:
-    name: Molecule
-    runs-on: ubuntu-latest
+    name: "Molecule"
+    runs-on: "ubuntu-latest"
     strategy:
       matrix:
         distro:
-          - ubuntu-20.04
-          - ubuntu-22.04
-          - ubuntu-22.10
+          - "ubuntu-20.04"
+          - "ubuntu-22.04"
+          - "ubuntu-22.10"
     steps:
-      - name: Check out the codebase.
-        uses: actions/checkout@v2
+      - name: "Check out the codebase."
+        uses: "actions/checkout@v3"
         with:
-          path: 'pmikus.nomad'
+          path: "pmikus.nomad"
 
-      - name: Set up Python 3.
-        uses: actions/setup-python@v2
+      - name: "Set up Python 3."
+        uses: "actions/setup-python@v4.4.0"
         with:
-          python-version: '3.x'
+          python-version: "3.x"
 
-      - name: Install test pip dependencies.
-        run: pip3 install ansible molecule[docker] docker
+      - name: "Install test pip dependencies."
+        run: "pip3 install ansible molecule[docker] docker"
 
-      - name: Run Molecule tests.
-        run: molecule test
+      - name: "Run Molecule tests."
+        run: "molecule test"
         env:
-          PY_COLORS: '1'
-          ANSIBLE_FORCE_COLOR: '1'
-          MOLECULE_DISTRO: ${{ matrix.distro }}
+          PY_COLORS: "1"
+          ANSIBLE_FORCE_COLOR: "1"
+          MOLECULE_DISTRO: "${{ matrix.distro }}"
 
   lint:
-    name: Lint
-    runs-on: ubuntu-latest
+    name: "Lint"
+    runs-on: "ubuntu-latest"
     steps:
-      - name: Check out the codebase.
-        uses: actions/checkout@v2
+      - name: "Check out the codebase."
+        uses: "actions/checkout@v3"
         with:
-          path: 'pmikus.nomad'
+          path: "pmikus.nomad"
 
-      - name: Set up Python 3.
-        uses: actions/setup-python@v2
+      - name: "Set up Python 3."
+        uses: "actions/setup-python@v4.4.0"
         with:
-          python-version: '3.x'
+          python-version: "3.x"
 
-      - name: Install test dependencies.
-        run: pip3 install yamllint
-
-      - name: Lint code.
-        uses: ansible-community/ansible-lint-action@v6.2.1
+      - name: "Lint code."
+        uses: "ansible/ansible-lint-action@v6.10.2"
         with:
-          path: 'pmikus.docker'
+          path: "pmikus.nomad"
 
   sonarcloud:
-    name: SonarCloud
-    runs-on: ubuntu-latest
+    name: "SonarCloud"
+    runs-on: "ubuntu-latest"
     steps:
-      - name: Check out the codebase.
-        uses: actions/checkout@v1
+      - name: "Check out the codebase."
+        uses: "actions/checkout@v3"
         with:
-          path: 'pmikus.nomad'
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
 
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@v1.6
-        with:
-          args: >
-            -Dsonar.projectVersion=${{ github.ref }}_${{ github.run_number }}
+      - name: "SonarCloud Scan"
+        uses: "SonarSource/sonarcloud-github-action@master"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"  # Needed to get PR information, if any
+          SONAR_TOKEN: "${{ secrets.SONAR_TOKEN }}"
