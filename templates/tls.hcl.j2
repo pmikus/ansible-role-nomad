@@ -1,4 +1,4 @@
-{% if nomad_tls_enable | bool %}
+{% if nomad_use_tls | bool %}
 tls {
     # Specifies the path to the CA certificate to use for Nomad's TLS
     # communication.

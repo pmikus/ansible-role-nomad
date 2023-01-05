@@ -121,7 +121,7 @@
   tags:
     - nomad-conf
 
-- name: Conf - Copy Certificates And Keys
+- name: Copy Certificates And Keys
   ansible.builtin.copy:
     content: "{{ item.src }}"
     dest: "{{ item.dest }}"
@@ -135,7 +135,7 @@
   tags:
     - nomad-conf
 
-- name: Conf - Nomad CLI Environment Variables
+- name: Nomad CLI Environment Variables
   ansible.builtin.lineinfile:
     path: "/etc/profile.d/nomad.sh"
     line: "{{ item }}"
@@ -149,7 +149,7 @@
   tags:
     - nomad-conf
 
-- name: Conf - System.d Script
+- name: System.d Script
   ansible.builtin.template:
     src: "nomad_systemd.service.j2"
     dest: "/lib/systemd/system/nomad.service"
@@ -163,5 +163,5 @@
   tags:
     - nomad-conf
 
-- name: Meta - Flush handlers
+- name: Flush handlers
   ansible.builtin.meta: flush_handlers
