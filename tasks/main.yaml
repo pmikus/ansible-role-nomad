@@ -40,6 +40,7 @@
   ansible.builtin.get_url:
     url: "{{ nomad_zip_url }}"
     dest: "{{ nomad_inst_dir }}/{{ nomad_pkg }}"
+    mode: 0644
   tags:
     - nomad-inst-package
 
@@ -138,6 +139,7 @@
   ansible.builtin.lineinfile:
     path: "/etc/profile.d/nomad.sh"
     line: "{{ item }}"
+    mode: 0644
     create: true
   loop:
     - "export NOMAD_ADDR=https://nomad-server.service.consul:4646"
