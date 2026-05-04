@@ -118,7 +118,7 @@ nomad_servers: "\
     {% set _nomad_servers = [] %}\
     {% for host in groups[nomad_group_name] %}\
       {% set _nomad_node_role = hostvars[host]['nomad_node_role'] | default('client', true) %}\
-      {% if ( _nomad_node_role == 'server' or _nomad_node_role == 'both') %}\
+      {% if (_nomad_node_role == 'server' or _nomad_node_role == 'both') %}\
         {% if _nomad_servers.append(host) %}{% endif %}\
       {% endif %}\
     {% endfor %}\
